@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --radius: 0.5rem;
+  }
+
+  .dark body {
+    background-color: #020617;
+    color: #f1f5f9;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+  }
+
+  * {
+    border-color: rgba(226, 232, 240, 0.8);
+  }
+
+  .dark * {
+    border-color: rgba(51, 65, 85, 0.6);
+  }
+
+  body {
+    background-color: #f1f5f7;
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
+
+/* Teclas de atalho para PDV */
+.kbd-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.375rem;
+  background-color: rgba(241, 245, 249, 1);
+  color: rgba(71, 85, 105, 1);
+  border: 1px solid rgba(203, 213, 225, 1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.dark .kbd-shortcut {
+  background-color: rgba(30, 41, 59, 1);
+  color: rgba(203, 213, 225, 1);
+  border-color: rgba(51, 65, 85, 1);
+}
+
+
+/* ===== Animação da logo Lynus PDV ===== */
+/* Ciclo de 5s: barras sobem -> seta desenha -> mantém -> some -> repete */
+@keyframes lynus-bar-loop {
+  0% { transform: scaleY(0); opacity: 0; }
+  10% { transform: scaleY(1.12); opacity: 1; }
+  15% { transform: scaleY(0.96); }
+  19%, 50% { transform: scaleY(1); }
+  58% { transform: scaleY(0.88); }
+  66%, 82% { transform: scaleY(1); opacity: 1; }
+  94%, 100% { transform: scaleY(0); opacity: 0; }
+}
+@keyframes lynus-arrow-loop {
+  0%, 8% { stroke-dashoffset: 1; opacity: 1; }
+  24%, 82% { stroke-dashoffset: 0; opacity: 1; }
+  92%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes lynus-head-loop {
+  0%, 22% { opacity: 0; transform: scale(0.2); }
+  27% { opacity: 1; transform: scale(1.35); }
+  31%, 82% { opacity: 1; transform: scale(1); }
+  92%, 100% { opacity: 0; transform: scale(1); }
+}
+@keyframes lynus-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(30, 144, 255, 0)); }
+  50% { filter: drop-shadow(0 0 6px rgba(30, 144, 255, 0.65)); }
+}
+@keyframes lynus-text-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes lynus-tag-in {
+  from { opacity: 0; letter-spacing: 0.05em; }
+  to { opacity: 1; letter-spacing: 0.45em; }
+}
+@keyframes lynus-line-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.lynus-logo-animated .lynus-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: lynus-bar-loop 5s ease-in-out infinite both;
+}
+.lynus-logo-animated .lynus-bar:nth-of-type(1) { animation-delay: 0s; }
+.lynus-logo-animated .lynus-bar:nth-of-type(2) { animation-delay: 0.12s; }
+.lynus-logo-animated .lynus-bar:nth-of-type(3) { animation-delay: 0.24s; }
+.lynus-logo-animated .lynus-bar:nth-of-type(4) { animation-delay: 0.36s; }
+
+.lynus-logo-animated .lynus-arrow {
+  stroke-dasharray: 1;
+  animation: lynus-arrow-loop 5s ease-out 0.4s infinite both;
+}
+.lynus-logo-animated .lynus-arrow-head {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lynus-head-loop 5s ease-out 0.4s infinite both;
+}
+.lynus-logo-animated .lynus-mark {
+  animation: lynus-glow 3s ease-in-out 1.6s infinite;
+}
+.lynus-logo-animated .lynus-name {
+  animation: lynus-text-in 0.5s ease-out 0.3s both;
+}
+.lynus-logo-animated .lynus-tag {
+  position: relative;
+  animation: lynus-tag-in 0.7s ease-out 0.7s both;
+}
+.lynus-logo-animated .lynus-tag::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(71, 85, 105, 0.7);
+  transform-origin: left;
+  animation: lynus-line-in 0.5s ease-out 0.5s both;
+}
+
+/* Avisos flutuantes do painel de login */
+@keyframes lynus-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.lynus-float {
+  animation: lynus-float 5s ease-in-out infinite;
+}
+.lynus-float-delay {
+  animation-delay: -2.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lynus-logo-animated *,
+  .lynus-logo-animated *::before,
+  .lynus-float {
+    animation: none !important;
+  }
+}
